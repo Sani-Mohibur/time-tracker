@@ -29,14 +29,14 @@ export const CalendarGrid: React.FC<CalendarGridProps> = ({
   const weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+    <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
       {/* Calendar Header Navigation */}
-      <div className="p-4 sm:p-5 flex items-center justify-between border-b border-slate-100 bg-slate-50/50">
+      <div className="p-4 sm:p-5 flex items-center justify-between border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
         <div className="flex items-center space-x-3">
           <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">
             <CalendarIcon className="w-4 h-4" />
           </div>
-          <h2 className="text-lg font-bold text-slate-900">
+          <h2 className="text-lg font-bold text-slate-900 dark:text-slate-50">
             {getMonthName(month)} {year}
           </h2>
         </div>
@@ -44,15 +44,15 @@ export const CalendarGrid: React.FC<CalendarGridProps> = ({
         <div className="flex items-center space-x-2">
           <button
             onClick={onCurrentMonth}
-            className="px-3 py-1.5 text-xs font-semibold text-slate-700 bg-white hover:bg-slate-100 border border-slate-200 rounded-lg shadow-2xs transition-colors"
+            className="px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-2xs transition-colors"
           >
             Today
           </button>
-          <div className="flex items-center border border-slate-200 rounded-lg bg-white overflow-hidden shadow-2xs">
+          <div className="flex items-center border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 overflow-hidden shadow-2xs">
             <button
               onClick={onPrevMonth}
               title="Previous Month"
-              className="p-1.5 hover:bg-slate-100 text-slate-600 transition-colors"
+              className="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 dark:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
@@ -60,7 +60,7 @@ export const CalendarGrid: React.FC<CalendarGridProps> = ({
             <button
               onClick={onNextMonth}
               title="Next Month"
-              className="p-1.5 hover:bg-slate-100 text-slate-600 transition-colors"
+              className="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 dark:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors"
             >
               <ChevronRight className="w-4 h-4" />
             </button>
@@ -69,14 +69,14 @@ export const CalendarGrid: React.FC<CalendarGridProps> = ({
       </div>
 
       {/* Weekday headers */}
-      <div className="grid grid-cols-7 border-b border-slate-100 bg-slate-50/70 text-center text-xs font-semibold text-slate-500 py-2.5">
+      <div className="grid grid-cols-7 border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/70 text-center text-xs font-semibold text-slate-500 dark:text-slate-400 py-2.5">
         {weekDays.map((day) => (
           <div key={day}>{day}</div>
         ))}
       </div>
 
       {/* Days Grid */}
-      <div className="grid grid-cols-7 divide-x divide-y divide-slate-100 bg-slate-100">
+      <div className="grid grid-cols-7 divide-x divide-y divide-slate-100 dark:divide-slate-800 bg-slate-100 dark:bg-slate-800">
         {cells.map((cell) => {
           const duration = dayDurations[cell.dateString] || 0;
           const isSelected = selectedDate === cell.dateString;
@@ -87,8 +87,8 @@ export const CalendarGrid: React.FC<CalendarGridProps> = ({
               key={cell.dateString}
               type="button"
               onClick={() => onSelectDate(cell.dateString)}
-              className={`min-h-[85px] sm:min-h-[95px] p-2 text-left flex flex-col justify-between transition-all bg-white hover:bg-blue-50/40 relative group ${
-                !cell.isCurrentMonth ? 'opacity-40 bg-slate-50/50' : ''
+              className={`min-h-[85px] sm:min-h-[95px] p-2 text-left flex flex-col justify-between transition-all bg-white dark:bg-slate-800 hover:bg-blue-50/40 relative group ${
+                !cell.isCurrentMonth ? 'opacity-40 bg-slate-50 dark:bg-slate-900/50' : ''
               } ${
                 isSelected
                   ? 'ring-2 ring-blue-600 ring-inset bg-blue-50/60 z-10'
@@ -102,7 +102,7 @@ export const CalendarGrid: React.FC<CalendarGridProps> = ({
                       ? 'bg-blue-600 text-white font-bold'
                       : isSelected
                       ? 'text-blue-700 font-bold'
-                      : 'text-slate-700'
+                      : 'text-slate-700 dark:text-slate-300'
                   }`}
                 >
                   {cell.dayNumber}

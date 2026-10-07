@@ -65,11 +65,11 @@ export const TasksPage: React.FC<TasksPageProps> = ({
   return (
     <div className="space-y-6 animate-in fade-in duration-200">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
         <div>
           <span className="text-xs font-bold uppercase tracking-wider text-blue-600">Management</span>
-          <h1 className="text-2xl font-bold text-slate-900 mt-1">All Tasks</h1>
-          <p className="text-sm text-slate-500 mt-0.5">Manage tasks, start timers and view history</p>
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-50 mt-1">All Tasks</h1>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-0.5">Manage tasks, start timers and view history</p>
         </div>
         <button
           onClick={() => setIsCreateModalOpen(true)}
@@ -82,12 +82,12 @@ export const TasksPage: React.FC<TasksPageProps> = ({
 
       {/* Task List / Cards */}
       {tasks.length === 0 ? (
-        <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center shadow-sm">
+        <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-12 text-center shadow-sm">
           <div className="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center mx-auto mb-3">
             <CheckSquare className="w-6 h-6" />
           </div>
-          <h3 className="text-base font-bold text-slate-900">No tasks created yet</h3>
-          <p className="text-sm text-slate-500 mt-1 max-w-sm mx-auto">
+          <h3 className="text-base font-bold text-slate-900 dark:text-slate-50">No tasks created yet</h3>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1 max-w-sm mx-auto">
             Add categories like Office, Learning, Freelancing to start tracking time.
           </p>
           <button
@@ -108,10 +108,10 @@ export const TasksPage: React.FC<TasksPageProps> = ({
             return (
               <div
                 key={task.id}
-                className={`bg-white rounded-2xl border p-5 transition-all shadow-sm flex flex-col justify-between ${
+                className={`bg-white dark:bg-slate-800 rounded-2xl border p-5 transition-all shadow-sm flex flex-col justify-between ${
                   isRunning
                     ? 'border-blue-500 ring-2 ring-blue-500/20 bg-blue-50/20'
-                    : 'border-slate-200 hover:border-slate-300'
+                    : 'border-slate-200 dark:border-slate-700 hover:border-slate-300'
                 }`}
               >
                 <div>
@@ -120,7 +120,7 @@ export const TasksPage: React.FC<TasksPageProps> = ({
                       <div className="flex items-center space-x-2">
                         <span
                           onClick={() => onOpenTaskDetails(task.id)}
-                          className="text-lg font-bold text-slate-900 hover:text-blue-600 cursor-pointer transition-colors line-clamp-1"
+                          className="text-lg font-bold text-slate-900 dark:text-slate-50 hover:text-blue-600 cursor-pointer transition-colors line-clamp-1"
                         >
                           {task.name}
                         </span>
@@ -148,20 +148,20 @@ export const TasksPage: React.FC<TasksPageProps> = ({
                   </div>
 
                   {/* Time stats */}
-                  <div className="grid grid-cols-2 gap-3 mt-4 pt-4 border-t border-slate-100">
-                    <div className="bg-slate-50 p-2.5 rounded-xl">
-                      <span className="text-[11px] font-semibold text-slate-500 block uppercase tracking-wider">
+                  <div className="grid grid-cols-2 gap-3 mt-4 pt-4 border-t border-slate-100 dark:border-slate-800">
+                    <div className="bg-slate-50 dark:bg-slate-900 p-2.5 rounded-xl">
+                      <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 block uppercase tracking-wider">
                         Today
                       </span>
-                      <span className="font-mono text-sm font-bold text-slate-900 mt-0.5 block">
+                      <span className="font-mono text-sm font-bold text-slate-900 dark:text-slate-50 mt-0.5 block">
                         {isRunning ? formatTimeTicker(todayDuration) : formatDuration(todayDuration)}
                       </span>
                     </div>
-                    <div className="bg-slate-50 p-2.5 rounded-xl">
-                      <span className="text-[11px] font-semibold text-slate-500 block uppercase tracking-wider">
+                    <div className="bg-slate-50 dark:bg-slate-900 p-2.5 rounded-xl">
+                      <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 block uppercase tracking-wider">
                         All Time
                       </span>
-                      <span className="font-mono text-sm font-bold text-slate-900 mt-0.5 block">
+                      <span className="font-mono text-sm font-bold text-slate-900 dark:text-slate-50 mt-0.5 block">
                         {formatDuration(totalDuration)}
                       </span>
                     </div>
@@ -169,7 +169,7 @@ export const TasksPage: React.FC<TasksPageProps> = ({
                 </div>
 
                 {/* Actions */}
-                <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between">
+                <div className="mt-5 pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
                   <button
                     onClick={() => onOpenTaskDetails(task.id)}
                     className="text-xs font-semibold text-blue-600 hover:text-blue-700 hover:underline flex items-center space-x-1"

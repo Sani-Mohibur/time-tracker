@@ -69,11 +69,11 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
   return (
     <div className="space-y-8 animate-in fade-in duration-200">
       {/* Top Welcome & Date Banner */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
         <div>
           <span className="text-xs font-bold uppercase tracking-wider text-blue-600">Overview</span>
-          <h1 className="text-2xl font-bold text-slate-900 mt-1">{formatDateFull(todayStr)}</h1>
-          <p className="text-sm text-slate-500 mt-0.5">Track your daily focus and sessions</p>
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-50 mt-1">{formatDateFull(todayStr)}</h1>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-0.5">Track your daily focus and sessions</p>
         </div>
         <div className="flex items-center space-x-3">
           <button
@@ -89,19 +89,19 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
       {/* Hero Stats Section */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         {/* Today Total Card */}
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm relative overflow-hidden">
+        <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm relative overflow-hidden">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Total Tracked Today</span>
+            <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Total Tracked Today</span>
             <div className="p-2 bg-blue-50 text-blue-600 rounded-xl">
               <Clock className="w-5 h-5" />
             </div>
           </div>
           <div className="mt-4 flex items-baseline space-x-2">
-            <span className="text-3xl font-extrabold text-slate-900 tracking-tight">
+            <span className="text-3xl font-extrabold text-slate-900 dark:text-slate-50 tracking-tight">
               {formatDuration(liveTotalToday)}
             </span>
           </div>
-          <p className="mt-2 text-xs text-slate-500">Sum of all sessions recorded today</p>
+          <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">Sum of all sessions recorded today</p>
           <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full blur-2xl pointer-events-none" />
         </div>
 
@@ -109,7 +109,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
         <div className={`p-6 rounded-2xl border shadow-sm transition-all md:col-span-2 relative overflow-hidden ${
           activeSession 
             ? 'bg-gradient-to-r from-blue-600 to-indigo-700 text-white border-blue-600'
-            : 'bg-white border-slate-200'
+            : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700'
         }`}>
           {activeSession ? (
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -128,7 +128,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                 </div>
                 <button
                   onClick={onPauseTask}
-                  className="flex items-center space-x-2 px-5 py-3 bg-white hover:bg-slate-100 text-slate-900 rounded-xl text-sm font-bold shadow-md transition-all active:scale-95"
+                  className="flex items-center space-x-2 px-5 py-3 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 dark:bg-slate-800 text-slate-900 dark:text-slate-50 rounded-xl text-sm font-bold shadow-md transition-all active:scale-95"
                 >
                   <Pause className="w-4 h-4 fill-current text-amber-600" />
                   <span>Pause</span>
@@ -142,8 +142,8 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                   <Sparkles className="w-4 h-4 text-slate-400" />
                   <span className="text-xs font-semibold uppercase tracking-wider">No Active Timer</span>
                 </div>
-                <h3 className="text-lg font-bold text-slate-800 mt-1">Ready to work?</h3>
-                <p className="text-xs text-slate-500 mt-0.5">Select a task below or create a new one to start tracking</p>
+                <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200 mt-1">Ready to work?</h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Select a task below or create a new one to start tracking</p>
               </div>
               <button
                 onClick={onNavigateToTasks}
@@ -158,13 +158,13 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
       </div>
 
       {/* Today's Tasks Tracking Breakdown */}
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-        <div className="p-5 border-b border-slate-100 flex items-center justify-between">
+      <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+        <div className="p-5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
           <div className="flex items-center space-x-2.5">
             <CheckCircle2 className="w-5 h-5 text-blue-600" />
-            <h2 className="text-base font-bold text-slate-900">Today's Tasks</h2>
+            <h2 className="text-base font-bold text-slate-900 dark:text-slate-50">Today's Tasks</h2>
           </div>
-          <span className="text-xs font-semibold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-lg">
+          <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2.5 py-1 rounded-lg">
             {tasks.length} {tasks.length === 1 ? 'task' : 'tasks'}
           </span>
         </div>
@@ -174,8 +174,8 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
             <div className="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center mx-auto mb-3">
               <Clock className="w-6 h-6" />
             </div>
-            <h3 className="text-base font-bold text-slate-900">No tasks created yet</h3>
-            <p className="text-sm text-slate-500 mt-1 max-w-sm mx-auto">
+            <h3 className="text-base font-bold text-slate-900 dark:text-slate-50">No tasks created yet</h3>
+            <p className="text-sm text-slate-500 dark:text-slate-400 mt-1 max-w-sm mx-auto">
               Create your first task (such as Office, Learning, or Personal Project) to start recording time sessions.
             </p>
             <button
@@ -187,7 +187,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
             </button>
           </div>
         ) : (
-          <div className="divide-y divide-slate-100">
+          <div className="divide-y divide-slate-100 dark:divide-slate-800">
             {tasks.map((task) => {
               const isRunning = activeSession?.task.id === task.id;
               // Today's total duration for this task
@@ -199,7 +199,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                 <div
                   key={task.id}
                   className={`p-4 sm:px-6 flex items-center justify-between transition-colors ${
-                    isRunning ? 'bg-blue-50/40' : 'hover:bg-slate-50/70'
+                    isRunning ? 'bg-blue-50/40' : 'hover:bg-slate-50 dark:hover:bg-slate-700/50 dark:bg-slate-900/70'
                   }`}
                 >
                   <div className="flex items-center space-x-4">
@@ -222,7 +222,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                     <div>
                       <button
                         onClick={() => onOpenTaskDetails(task.id)}
-                        className="text-base font-bold text-slate-900 hover:text-blue-600 text-left transition-colors flex items-center space-x-2"
+                        className="text-base font-bold text-slate-900 dark:text-slate-50 hover:text-blue-600 text-left transition-colors flex items-center space-x-2"
                       >
                         <span>{task.name}</span>
                         {isRunning && (
@@ -231,7 +231,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                           </span>
                         )}
                       </button>
-                      <span className="text-xs text-slate-500">
+                      <span className="text-xs text-slate-500 dark:text-slate-400">
                         {displayDuration > 0
                           ? `Tracked ${formatDuration(displayDuration)} today`
                           : 'No time tracked today'}
@@ -241,7 +241,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
 
                   <div className="flex items-center space-x-4">
                     <div className="text-right">
-                      <div className="font-mono text-base font-bold text-slate-900">
+                      <div className="font-mono text-base font-bold text-slate-900 dark:text-slate-50">
                         {isRunning ? formatTimeTicker(displayDuration) : formatDuration(displayDuration)}
                       </div>
                       <span className="text-[11px] text-slate-400 font-medium">Today's total</span>
@@ -249,7 +249,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
 
                     <button
                       onClick={() => onOpenTaskDetails(task.id)}
-                      className="p-2 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100 transition-colors"
+                      className="p-2 text-slate-400 hover:text-slate-600 dark:text-slate-400 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 dark:bg-slate-800 transition-colors"
                       title="View Details"
                     >
                       <ArrowRight className="w-4 h-4" />

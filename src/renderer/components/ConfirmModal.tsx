@@ -27,7 +27,7 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-xs">
       <div 
-        className="bg-white rounded-2xl shadow-xl border border-slate-200 w-full max-w-md p-6 transform transition-all animate-in fade-in zoom-in-95 duration-150"
+        className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 w-full max-w-md p-6 transform transition-all animate-in fade-in zoom-in-95 duration-150"
         role="dialog"
         aria-modal="true"
       >
@@ -44,8 +44,8 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
             )}
           </div>
           <div className="flex-1">
-            <h3 className="text-lg font-semibold text-slate-900">{title}</h3>
-            <p className="mt-2 text-sm text-slate-600 leading-relaxed">{message}</p>
+            <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-50">{title}</h3>
+            <p className="mt-2 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{message}</p>
           </div>
         </div>
 
@@ -53,7 +53,7 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
           <button
             type="button"
             onClick={onCancel}
-            className="px-4 py-2 text-sm font-medium text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition-colors"
+            className="px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 rounded-xl transition-colors"
           >
             {cancelLabel}
           </button>

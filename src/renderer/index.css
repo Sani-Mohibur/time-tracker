@@ -9,6 +9,12 @@
     background-color: #f8fafc;
   }
 
+  .dark body {
+    color: #f8fafc;
+    background-color: #0f172a;
+  }
+
+
   .font-mono {
     font-family: 'JetBrains Mono', monospace;
   }

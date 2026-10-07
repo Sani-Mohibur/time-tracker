@@ -93,11 +93,11 @@ export const CalendarPage: React.FC<CalendarPageProps> = ({
   return (
     <div className="space-y-6 animate-in fade-in duration-200">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
         <div>
           <span className="text-xs font-bold uppercase tracking-wider text-blue-600">History</span>
-          <h1 className="text-2xl font-bold text-slate-900 mt-1">Overall Calendar</h1>
-          <p className="text-sm text-slate-500 mt-0.5">
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-50 mt-1">Overall Calendar</h1>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-0.5">
             Click any date to see the tasks and individual sessions recorded
           </p>
         </div>
@@ -119,20 +119,20 @@ export const CalendarPage: React.FC<CalendarPageProps> = ({
         </div>
 
         {/* Right 1 Col: Day Breakdown Panel */}
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 flex flex-col justify-between">
+        <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm p-5 flex flex-col justify-between">
           <div>
-            <div className="pb-4 border-b border-slate-100 flex items-start justify-between">
+            <div className="pb-4 border-b border-slate-100 dark:border-slate-800 flex items-start justify-between">
               <div>
                 <span className="text-[11px] font-bold uppercase tracking-wider text-blue-600 block">
                   Date Breakdown
                 </span>
-                <h3 className="text-base font-bold text-slate-900 mt-0.5">
+                <h3 className="text-base font-bold text-slate-900 dark:text-slate-50 mt-0.5">
                   {formatDateShort(selectedDate)}
                 </h3>
               </div>
               <div className="text-right">
                 <span className="text-xs text-slate-400 block font-medium">Day Total</span>
-                <span className="font-mono text-base font-bold text-slate-900">
+                <span className="font-mono text-base font-bold text-slate-900 dark:text-slate-50">
                   {formatDuration(liveSelectedTotal)}
                 </span>
               </div>
@@ -141,7 +141,7 @@ export const CalendarPage: React.FC<CalendarPageProps> = ({
             {!dayDetail || dayDetail.tasks.length === 0 ? (
               <div className="py-14 text-center text-slate-400">
                 <Clock className="w-9 h-9 mx-auto text-slate-300 mb-2" />
-                <p className="text-xs font-semibold text-slate-600">No time tracked on this date</p>
+                <p className="text-xs font-semibold text-slate-600 dark:text-slate-400">No time tracked on this date</p>
                 <p className="text-[11px] text-slate-400 mt-0.5">
                   Select a day with tracked activity to view details.
                 </p>
@@ -157,12 +157,12 @@ export const CalendarPage: React.FC<CalendarPageProps> = ({
                   return (
                     <div
                       key={taskItem.taskId}
-                      className="bg-slate-50/80 rounded-xl p-3.5 border border-slate-200/80 space-y-2.5"
+                      className="bg-slate-50 dark:bg-slate-900/80 rounded-xl p-3.5 border border-slate-200 dark:border-slate-700/80 space-y-2.5"
                     >
                       <div className="flex items-center justify-between">
                         <button
                           onClick={() => onOpenTaskDetails(taskItem.taskId)}
-                          className="text-sm font-bold text-slate-900 hover:text-blue-600 text-left transition-colors flex items-center space-x-1.5"
+                          className="text-sm font-bold text-slate-900 dark:text-slate-50 hover:text-blue-600 text-left transition-colors flex items-center space-x-1.5"
                         >
                           <span>{taskItem.taskName}</span>
                           <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
@@ -173,7 +173,7 @@ export const CalendarPage: React.FC<CalendarPageProps> = ({
                       </div>
 
                       {/* Sessions under this task */}
-                      <div className="space-y-1.5 pl-2 border-l-2 border-slate-200">
+                      <div className="space-y-1.5 pl-2 border-l-2 border-slate-200 dark:border-slate-700">
                         {taskItem.sessions.map((s) => {
                           const isSessionRunning = s.status === 'running';
                           const durationSec = isSessionRunning ? liveElapsed : s.duration;
@@ -181,13 +181,13 @@ export const CalendarPage: React.FC<CalendarPageProps> = ({
                           return (
                             <div
                               key={s.id}
-                              className="flex items-center justify-between text-xs text-slate-600"
+                              className="flex items-center justify-between text-xs text-slate-600 dark:text-slate-400"
                             >
-                              <span className="font-medium text-slate-700">
+                              <span className="font-medium text-slate-700 dark:text-slate-300">
                                 {formatTimestampTime(s.startTime)} →{' '}
                                 {isSessionRunning ? 'Now' : formatTimestampTime(s.endTime)}
                               </span>
-                              <span className="font-mono text-[11px] font-semibold text-slate-500">
+                              <span className="font-mono text-[11px] font-semibold text-slate-500 dark:text-slate-400">
                                 {isSessionRunning ? formatTimeTicker(durationSec) : formatDuration(durationSec)}
                               </span>
                             </div>
@@ -201,7 +201,7 @@ export const CalendarPage: React.FC<CalendarPageProps> = ({
             )}
           </div>
 
-          <div className="pt-4 mt-4 border-t border-slate-100 text-center">
+          <div className="pt-4 mt-4 border-t border-slate-100 dark:border-slate-800 text-center">
             <span className="text-[11px] text-slate-400 font-medium">
               {formatDateFull(selectedDate)}
             </span>

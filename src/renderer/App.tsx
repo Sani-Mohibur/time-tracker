@@ -39,7 +39,7 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex flex-col transition-colors duration-200">
       {/* Browser Preview Notice */}
       {isBrowserPreview && !dismissNotice && (
         <div className="bg-amber-500 text-white text-xs font-medium px-4 py-1.5 flex items-center justify-between shadow-xs">
