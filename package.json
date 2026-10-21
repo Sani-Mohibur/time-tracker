@@ -1,6 +1,6 @@
 {
   "name": "tracker-app",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Simple offline desktop time-tracking application",
   "main": "dist-electron/index.js",
   "type": "module",
