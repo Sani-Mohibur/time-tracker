@@ -151,6 +151,23 @@ async function runVerification() {
     throw new Error('Today running session was incorrectly closed on startup!');
   }
   console.log(`✓ 19b. Today running session preserved on restart recovery`);
+
+  // 20. Verify that running session duration is NOT baked into base todayDuration / todaySummary
+  const liveTasks = await TaskService.getAllTasks();
+  const liveOffice = liveTasks.find((t) => t.id === office.id);
+  const liveSummary = await SessionService.getTodaySummary();
+  const liveOfficeSummary = liveSummary.tasks.find((t) => t.task.id === office.id);
+
+  if (!liveOffice?.isRunning || !liveOfficeSummary?.isRunning) {
+    throw new Error('Running task should have isRunning: true');
+  }
+  if (liveOffice.todayDuration !== expectedTotal || liveOfficeSummary.duration !== expectedTotal) {
+    throw new Error(
+      `Running task base duration should only include completed sessions (${expectedTotal}s), got task=${liveOffice.todayDuration}s, summary=${liveOfficeSummary.duration}s`
+    );
+  }
+  console.log(`✓ 20. Verified running task base duration (${liveOffice.todayDuration}s) does not double-count live running session`);
+
   await SessionService.pauseSession();
 
   // 21. Delete Task and verify cascade deletion of sessions

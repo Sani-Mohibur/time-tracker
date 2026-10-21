@@ -66,14 +66,14 @@ export const browserApi: ElectronAPI = {
 
         const totalDuration = taskSessions.reduce((sum, s) => {
           if (s.status === 'running') {
-            return sum + Math.max(0, Math.floor((Date.now() - s.startTime) / 1000));
+            return sum;
           }
           return sum + (s.duration || 0);
         }, 0);
 
         const todayDuration = todaySessions.reduce((sum, s) => {
           if (s.status === 'running') {
-            return sum + Math.max(0, Math.floor((Date.now() - s.startTime) / 1000));
+            return sum;
           }
           return sum + (s.duration || 0);
         }, 0);
@@ -200,7 +200,7 @@ export const browserApi: ElectronAPI = {
         const taskTodaySessions = todaySessions.filter((s) => s.taskId === task.id);
         const duration = taskTodaySessions.reduce((sum, s) => {
           if (s.status === 'running') {
-            return sum + Math.max(0, Math.floor((Date.now() - s.startTime) / 1000));
+            return sum;
           }
           return sum + (s.duration || 0);
         }, 0);
@@ -298,9 +298,8 @@ export const browserApi: ElectronAPI = {
       let allTimeSeconds = 0;
 
       sessions.forEach((s) => {
-        const dur = s.status === 'running'
-          ? Math.max(0, Math.floor((Date.now() - s.startTime) / 1000))
-          : (s.duration || 0);
+        if (s.status === 'running') return;
+        const dur = s.duration || 0;
 
         allTimeSeconds += dur;
         if (s.date === today) todaySeconds += dur;

@@ -27,7 +27,7 @@ export class TaskService {
     const allSessions = db.select().from(timeSessions).all();
 
     const result: Task[] = allTasks.map((task) => {
-      // Calculate today's duration
+      // Calculate today's duration (completed sessions only; live session is added dynamically on frontend)
       const taskTodaySessions = todaySessions.filter((s) => s.taskId === task.id);
       let todayDuration = 0;
       let isRunning = false;
@@ -35,20 +35,17 @@ export class TaskService {
       for (const s of taskTodaySessions) {
         if (s.status === 'running') {
           isRunning = true;
-          const liveElapsed = Math.floor((Date.now() - s.startTime) / 1000);
-          todayDuration += Math.max(0, liveElapsed);
         } else {
           todayDuration += s.duration;
         }
       }
 
-      // Calculate all-time duration
+      // Calculate all-time duration (completed sessions only)
       const taskAllSessions = allSessions.filter((s) => s.taskId === task.id);
       let totalDuration = 0;
       for (const s of taskAllSessions) {
         if (s.status === 'running') {
-          const liveElapsed = Math.floor((Date.now() - s.startTime) / 1000);
-          totalDuration += Math.max(0, liveElapsed);
+          // Live duration is tracked dynamically
         } else {
           totalDuration += s.duration;
         }
@@ -90,12 +87,9 @@ export class TaskService {
     for (const s of todaySessions) {
       const isToday = s.date === today;
       if (s.status === 'running') {
-        const liveElapsed = Math.floor((Date.now() - s.startTime) / 1000);
         if (isToday) {
           isRunning = true;
-          todayDuration += Math.max(0, liveElapsed);
         }
-        totalDuration += Math.max(0, liveElapsed);
       } else {
         if (isToday) {
           todayDuration += s.duration;

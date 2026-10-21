@@ -283,9 +283,6 @@ export class SessionService {
       for (const s of taskSessions) {
         if (s.status === 'running') {
           isRunning = true;
-          const liveDuration = Math.max(0, Math.floor((Date.now() - s.startTime) / 1000));
-          duration += liveDuration;
-          totalSeconds += liveDuration;
 
           activeTaskInfo = {
             task: {
@@ -300,7 +297,7 @@ export class SessionService {
               date: s.date,
               startTime: s.startTime,
               endTime: s.endTime,
-              duration: s.duration,
+              duration: 0,
               status: s.status as 'running' | 'completed',
             },
             startTime: s.startTime,
@@ -365,11 +362,12 @@ export class SessionService {
     >();
 
     for (const s of sessions) {
-      let duration = s.duration;
-      if (s.status === 'running') {
-        duration = Math.max(0, Math.floor((Date.now() - s.startTime) / 1000));
+      const isRunning = s.status === 'running';
+      const duration = isRunning ? 0 : s.duration;
+
+      if (!isRunning) {
+        totalSeconds += duration;
       }
-      totalSeconds += duration;
 
       if (!taskMap.has(s.taskId)) {
         taskMap.set(s.taskId, {
@@ -381,14 +379,16 @@ export class SessionService {
       }
 
       const entry = taskMap.get(s.taskId)!;
-      entry.totalSeconds += duration;
+      if (!isRunning) {
+        entry.totalSeconds += duration;
+      }
       entry.sessions.push({
         id: s.id,
         taskId: s.taskId,
         date: s.date,
         startTime: s.startTime,
         endTime: s.endTime,
-        duration,
+        duration: isRunning ? 0 : s.duration,
         status: s.status as 'running' | 'completed',
         taskName: s.taskName,
       });
@@ -427,24 +427,24 @@ export class SessionService {
     const dateMap = new Map<string, { totalSeconds: number; sessions: TimeSession[] }>();
 
     for (const s of sessions) {
-      let duration = s.duration;
-      if (s.status === 'running') {
-        duration = Math.max(0, Math.floor((Date.now() - s.startTime) / 1000));
-      }
+      const isRunning = s.status === 'running';
+      const duration = isRunning ? 0 : s.duration;
 
       if (!dateMap.has(s.date)) {
         dateMap.set(s.date, { totalSeconds: 0, sessions: [] });
       }
 
       const entry = dateMap.get(s.date)!;
-      entry.totalSeconds += duration;
+      if (!isRunning) {
+        entry.totalSeconds += duration;
+      }
       entry.sessions.push({
         id: s.id,
         taskId: s.taskId,
         date: s.date,
         startTime: s.startTime,
         endTime: s.endTime,
-        duration,
+        duration: isRunning ? 0 : s.duration,
         status: s.status as 'running' | 'completed',
       });
     }
@@ -492,11 +492,11 @@ export class SessionService {
     let allTimeSeconds = 0;
 
     for (const s of sessions) {
-      let duration = s.duration;
       if (s.status === 'running') {
-        duration = Math.max(0, Math.floor((Date.now() - s.startTime) / 1000));
+        continue;
       }
 
+      const duration = s.duration;
       allTimeSeconds += duration;
 
       if (s.date === today) {
@@ -538,17 +538,17 @@ export class SessionService {
     const dateMap = new Map<string, { totalSeconds: number; taskIds: Set<number> }>();
 
     for (const s of sessions) {
-      let duration = s.duration;
-      if (s.status === 'running') {
-        duration = Math.max(0, Math.floor((Date.now() - s.startTime) / 1000));
-      }
+      const isRunning = s.status === 'running';
+      const duration = isRunning ? 0 : s.duration;
 
       if (!dateMap.has(s.date)) {
         dateMap.set(s.date, { totalSeconds: 0, taskIds: new Set() });
       }
 
       const entry = dateMap.get(s.date)!;
-      entry.totalSeconds += duration;
+      if (!isRunning) {
+        entry.totalSeconds += duration;
+      }
       entry.taskIds.add(s.taskId);
     }
 
@@ -619,11 +619,11 @@ export class SessionService {
     }
 
     for (const s of sessions) {
-      let duration = s.duration;
       if (s.status === 'running') {
-        duration = Math.max(0, Math.floor((Date.now() - s.startTime) / 1000));
+        continue;
       }
 
+      const duration = s.duration;
       totalSeconds += duration;
 
       if (!taskMap.has(s.taskId)) {
@@ -708,11 +708,11 @@ export class SessionService {
     }
 
     for (const s of sessions) {
-      let duration = s.duration;
       if (s.status === 'running') {
-        duration = Math.max(0, Math.floor((Date.now() - s.startTime) / 1000));
+        continue;
       }
 
+      const duration = s.duration;
       totalSeconds += duration;
 
       if (!taskMap.has(s.taskId)) {

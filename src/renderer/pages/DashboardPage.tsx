@@ -39,7 +39,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
 
   // Compute live today's total
   const baseCompletedToday = (todaySummary?.tasks || []).reduce((acc, t) => {
-    return acc + (t.isRunning ? 0 : t.duration);
+    return acc + t.duration;
   }, 0);
   const liveTotalToday = baseCompletedToday + (activeSession ? liveElapsed : 0);
 
