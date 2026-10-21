@@ -5,11 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.0.1] - 2026-10-21
 
 ### Fixed
 - Fixed 2x double-counting calculation bug in "Today's Tasks" and summary metrics where running session duration was added both from backend query snapshots and live frontend tickers.
 - Corrected daily total calculation on Dashboard so completed session durations of currently running tasks are not discarded.
+- Fixed task name input field visibility in dark mode within CreateTaskModal by applying dark background, border, and placeholder styling.
 
 ### Added
 - Automated verification step in test suite (`scripts/verify-all.ts`) to ensure running sessions are cleanly separated from completed session totals.
