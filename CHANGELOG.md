@@ -20,7 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2026-10-21
 
 ### Added
-- Initial release of TimeTracker desktop application.
+- Initial release of Time Tracker desktop application.
 - Real-time time tracking with start, pause, resume, and switch task capabilities.
 - Local SQLite database persistence using Drizzle ORM.
 - Dashboard with live active timer, today's summary, and task list.

@@ -36,7 +36,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <Clock className="w-5 h-5" />
               </div>
               <div>
-                <span className="text-base font-bold tracking-tight text-slate-900 dark:text-white">TimeTracker</span>
+                <span className="text-base font-bold tracking-tight text-slate-900 dark:text-white">Time Tracker</span>
                 <span className="hidden sm:inline-block ml-2 text-xs font-semibold px-2 py-0.5 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full border border-blue-200/60 dark:border-blue-800/50">Desktop</span>
               </div>
             </div>

@@ -1,4 +1,4 @@
-# TimeTracker Desktop Application
+# Time Tracker Desktop Application
 
 A minimal, fast, and offline desktop time-tracking application built with **Electron**, **React**, **TypeScript**, **Vite**, **Tailwind CSS**, **SQLite** (`better-sqlite3`), and **Drizzle ORM**.
 

@@ -6,7 +6,7 @@ import { browserApi } from './mock/browserApi';
 
 // Fallback to browserApi if window.api is not provided by Electron (e.g. previewing in standard browser)
 if (typeof window !== 'undefined' && !window.api) {
-  console.info('[TimeTracker] Electron API not detected. Initializing browser preview storage.');
+  console.info('[Time Tracker] Electron API not detected. Initializing browser preview storage.');
   window.api = browserApi;
 }
 

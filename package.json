@@ -22,7 +22,7 @@
   "license": "MIT",
   "build": {
     "appId": "com.timetracker.app",
-    "productName": "TimeTracker",
+    "productName": "Time Tracker",
     "icon": "public/icon.ico",
     "directories": {
       "output": "release"
