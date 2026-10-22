@@ -23,14 +23,17 @@
   "build": {
     "appId": "com.timetracker.app",
     "productName": "TimeTracker",
+    "icon": "public/icon.ico",
     "directories": {
       "output": "release"
     },
     "files": [
       "dist/**/*",
-      "dist-electron/**/*"
+      "dist-electron/**/*",
+      "public/**/*"
     ],
     "win": {
+      "icon": "public/icon.ico",
       "target": [
         "nsis",
         "portable"

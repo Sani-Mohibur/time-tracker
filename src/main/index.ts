@@ -25,6 +25,7 @@ const indexHtml = path.join(process.env.DIST, 'index.html');
 async function createWindow() {
   mainWindow = new BrowserWindow({
     title: 'Time Tracker',
+    icon: path.join(process.env.VITE_PUBLIC!, 'icon.ico'),
     width: 1120,
     height: 780,
     minWidth: 850,
