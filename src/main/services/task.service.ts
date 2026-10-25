@@ -15,6 +15,9 @@ export class TaskService {
     const db = getDb();
     const allTasks = db.select().from(tasks).orderBy(desc(tasks.updatedAt)).all();
     const today = getLocalDateString();
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 6);
+    const sevenDaysAgoStr = getLocalDateString(sevenDaysAgo);
 
     // Fetch all sessions for today to compute today's duration and active status
     const todaySessions = db
@@ -29,8 +32,13 @@ export class TaskService {
     const result: Task[] = allTasks.map((task) => {
       // Calculate today's duration (completed sessions only; live session is added dynamically on frontend)
       const taskTodaySessions = todaySessions.filter((s) => s.taskId === task.id);
+      const taskAllSessions = allSessions.filter((s) => s.taskId === task.id);
+
       let todayDuration = 0;
+      let totalDuration = 0;
+      let recentDuration = 0;
       let isRunning = false;
+      let lastTrackedAt: number | null = null;
 
       for (const s of taskTodaySessions) {
         if (s.status === 'running') {
@@ -40,14 +48,20 @@ export class TaskService {
         }
       }
 
-      // Calculate all-time duration (completed sessions only)
-      const taskAllSessions = allSessions.filter((s) => s.taskId === task.id);
-      let totalDuration = 0;
+      // Calculate all-time and recent duration, lastTrackedAt, and sessionCount
       for (const s of taskAllSessions) {
+        const sessionTime = s.endTime || s.startTime;
+        if (!lastTrackedAt || sessionTime > lastTrackedAt) {
+          lastTrackedAt = sessionTime;
+        }
+
         if (s.status === 'running') {
-          // Live duration is tracked dynamically
+          isRunning = true;
         } else {
           totalDuration += s.duration;
+          if (s.date >= sevenDaysAgoStr) {
+            recentDuration += s.duration;
+          }
         }
       }
 
@@ -58,6 +72,9 @@ export class TaskService {
         updatedAt: task.updatedAt,
         todayDuration,
         totalDuration,
+        recentDuration,
+        lastTrackedAt,
+        sessionCount: taskAllSessions.length,
         isRunning,
       };
     });
@@ -74,7 +91,11 @@ export class TaskService {
     if (!task) return null;
 
     const today = getLocalDateString();
-    const todaySessions = db
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 6);
+    const sevenDaysAgoStr = getLocalDateString(sevenDaysAgo);
+
+    const taskSessions = db
       .select()
       .from(timeSessions)
       .where(eq(timeSessions.taskId, id))
@@ -82,10 +103,17 @@ export class TaskService {
 
     let todayDuration = 0;
     let totalDuration = 0;
+    let recentDuration = 0;
     let isRunning = false;
+    let lastTrackedAt: number | null = null;
 
-    for (const s of todaySessions) {
+    for (const s of taskSessions) {
       const isToday = s.date === today;
+      const sessionTime = s.endTime || s.startTime;
+      if (!lastTrackedAt || sessionTime > lastTrackedAt) {
+        lastTrackedAt = sessionTime;
+      }
+
       if (s.status === 'running') {
         if (isToday) {
           isRunning = true;
@@ -95,6 +123,9 @@ export class TaskService {
           todayDuration += s.duration;
         }
         totalDuration += s.duration;
+        if (s.date >= sevenDaysAgoStr) {
+          recentDuration += s.duration;
+        }
       }
     }
 
@@ -105,6 +136,9 @@ export class TaskService {
       updatedAt: task.updatedAt,
       todayDuration,
       totalDuration,
+      recentDuration,
+      lastTrackedAt,
+      sessionCount: taskSessions.length,
       isRunning,
     };
   }
@@ -142,6 +176,9 @@ export class TaskService {
       updatedAt: inserted.updatedAt,
       todayDuration: 0,
       totalDuration: 0,
+      recentDuration: 0,
+      lastTrackedAt: null,
+      sessionCount: 0,
       isRunning: false,
     };
   }

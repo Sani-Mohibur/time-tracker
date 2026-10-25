@@ -60,9 +60,17 @@ export const browserApi: ElectronAPI = {
       const today = getTodayString();
       const activeSession = sessions.find((s) => s.status === 'running');
 
+      const sevenDaysAgo = new Date();
+      sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 6);
+      const pad = (n: number) => String(n).padStart(2, '0');
+      const sevenDaysAgoStr = `${sevenDaysAgo.getFullYear()}-${pad(sevenDaysAgo.getMonth() + 1)}-${pad(sevenDaysAgo.getDate())}`;
+
       return tasks.map((task) => {
         const taskSessions = sessions.filter((s) => s.taskId === task.id);
         const todaySessions = taskSessions.filter((s) => s.date === today);
+        const recentSessions = taskSessions.filter((s) => s.date >= sevenDaysAgoStr);
+
+        const isRunning = activeSession?.taskId === task.id;
 
         const totalDuration = taskSessions.reduce((sum, s) => {
           if (s.status === 'running') {
@@ -78,11 +86,32 @@ export const browserApi: ElectronAPI = {
           return sum + (s.duration || 0);
         }, 0);
 
+        const recentDuration = recentSessions.reduce((sum, s) => {
+          if (s.status === 'running') {
+            return sum;
+          }
+          return sum + (s.duration || 0);
+        }, 0);
+
+        let lastTrackedAt: number | null = null;
+        for (const s of taskSessions) {
+          const t = s.endTime || s.startTime;
+          if (!lastTrackedAt || t > lastTrackedAt) {
+            lastTrackedAt = t;
+          }
+        }
+        if (isRunning) {
+          lastTrackedAt = Math.max(lastTrackedAt || 0, Date.now());
+        }
+
         return {
           ...task,
           todayDuration,
           totalDuration,
-          isRunning: activeSession?.taskId === task.id,
+          recentDuration,
+          lastTrackedAt,
+          sessionCount: taskSessions.length,
+          isRunning,
         };
       });
     },
@@ -101,6 +130,9 @@ export const browserApi: ElectronAPI = {
         updatedAt: new Date().toISOString(),
         todayDuration: 0,
         totalDuration: 0,
+        recentDuration: 0,
+        lastTrackedAt: null,
+        sessionCount: 0,
         isRunning: false,
       };
       tasks.push(newTask);

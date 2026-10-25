@@ -6,7 +6,15 @@ A minimal, fast, and offline desktop time-tracking application built with **Elec
 
 ## 🎯 Features
 
-- **Task & Category Management**: Create, view, and delete tasks (such as *Office*, *Learning*, *Personal Project*, *Freelancing*).
+- **Task & Category Management**: Create, search, sort, and delete tasks (such as *Office*, *Learning*, *Personal Project*, *Freelancing*).
+- **Single-Column Task Layout**: Streamlined, compact single-column list with one task per row, optimizing horizontal desktop space, reducing vertical footprint, and keeping duration metrics and controls immediately accessible.
+- **Dynamic Task Search**: Real-time name search input that filters tasks dynamically as you type, complete with an instant clear button and dedicated empty state.
+- **Flexible Task Organization & Sorting**:
+  - **Manual Drag-and-Drop**: Reorder tasks intuitively with custom order persisted in `localStorage`.
+  - **Sorting Presets**: Instant sorting by *Date Added – Newest First*, *Date Added – Oldest First*, *Most Time Tracked*, *Most Popular* (by usage/session frequency), and *Recently Worked On*.
+  - Drag-and-drop handles activate exclusively in Manual mode, preserving stability across other sort modes.
+  - Seamlessly combined with search to preserve active filters and sorting simultaneously.
+- **Daily Dashboard with Activity Filters**: Real-time ticker for active task, today's total tracked time, quick controls, and a dropdown selector to toggle between **Today's Tasks** (displaying only tasks worked on today) and **Recent Tasks** (tasks worked on within the last 7 days).
 - **Accurate Live Timer**: Drift-free timestamp-based tracking (`Date.now() - startTime`), keeping live accuracy even if UI re-renders or the app is minimized.
 - **Strict Daily Boundary Enforcement**:
   - Task sessions belong strictly to a local calendar date (`YYYY-MM-DD`).
@@ -14,7 +22,6 @@ A minimal, fast, and offline desktop time-tracking application built with **Elec
   - If a timer was running when the app or computer was closed on a previous day, on startup the session is automatically closed at `23:59:59.999` of that day.
   - Real-time midnight rollover smoothly closes the previous day's session and begins a new session for the new date.
 - **Single Active Task Constraint**: Prevents running multiple tasks simultaneously, offering a clean confirmation prompt before switching.
-- **Daily Dashboard**: Real-time ticker for active task, today's total tracked time, and quick start/resume/pause controls.
 - **Overall Calendar**: Interactive monthly calendar showing total tracked time across all tasks for each day. Click any date to view all tasks and sessions for that day.
 - **Task Details & Dedicated Calendar**:
   - Stat cards: **Today**, **This Week**, **This Month**, and **All Time**.
@@ -67,8 +74,8 @@ tracker-app/
 │       │   ├── CreateTaskModal.tsx # Task creation modal
 │       │   └── ConfirmModal.tsx    # Accessible confirmation modal
 │       ├── pages/
-│       │   ├── DashboardPage.tsx   # Today's overview, live ticker, and task list
-│       │   ├── TasksPage.tsx       # All tasks management & quick actions
+│       │   ├── DashboardPage.tsx   # Today's overview, live ticker, and Today's/Recent task filters
+│       │   ├── TasksPage.tsx       # Single-column task list with search, sorting, and drag-and-drop
 │       │   ├── TaskDetailsPage.tsx # Individual task stats, calendar, and session log
 │       │   ├── CalendarPage.tsx    # Overall calendar view with date breakdown
 │       │   └── StatisticsPage.tsx  # Weekly & monthly analytics

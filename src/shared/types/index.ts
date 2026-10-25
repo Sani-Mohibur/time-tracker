@@ -6,6 +6,9 @@ export interface Task {
   todayDuration?: number; // Total seconds tracked today
   totalDuration?: number; // All-time seconds
   isRunning?: boolean;
+  lastTrackedAt?: number | null; // Timestamp of latest session activity (ms)
+  sessionCount?: number; // Total number of sessions tracked
+  recentDuration?: number; // Total seconds tracked during the last 7 days (including today)
 }
 
 export type SessionStatus = 'running' | 'completed';

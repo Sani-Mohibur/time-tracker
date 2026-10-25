@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2026-10-26
+
+### Added
+- **Dashboard Task Filters**: Added a dropdown selector on the Dashboard page to switch between "Today's Tasks" (displaying only tasks worked on during the current day) and "Recent Tasks" (displaying tasks tracked within the last 7 days, including today) with dedicated empty states.
+- **Tasks Page Search**: Added a real-time search input field between the header and task list, allowing users to dynamically filter tasks by name with light/dark mode support and a clear-search empty state.
+- **Task Sorting and Organization**:
+  - **Manual Drag-and-Drop**: Enabled drag-and-drop task reordering with persistent custom order saved to `localStorage`.
+  - **Sorting Presets**: Added instant sorting by *Date Added – Newest First*, *Date Added – Oldest First*, *Most Time Tracked*, *Most Popular* (by usage/session frequency), and *Recently Worked On*.
+  - Persistent sort mode preference across sessions.
+  - Disabled manual dragging controls when non-manual sorting modes are active.
+- **Task Activity Metrics**: Enriched the task data model with `lastTrackedAt`, `sessionCount`, and `recentDuration` calculated in both SQLite backend and browser preview environments.
+
+### Changed
+- **Single-Column Task Layout**: Redesigned the Tasks page from a two-column grid to a streamlined, compact single-column row layout, optimizing horizontal desktop space, reducing vertical padding, and keeping all metrics and controls accessible.
+
+---
+
 ## [1.0.1] - 2026-10-21
 
 ### Fixed
