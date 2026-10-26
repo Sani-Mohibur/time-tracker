@@ -14,7 +14,7 @@ A minimal, fast, and offline desktop time-tracking application built with **Elec
   - **Sorting Presets**: Instant sorting by *Date Added – Newest First*, *Date Added – Oldest First*, *Most Time Tracked*, *Most Popular* (by usage/session frequency), and *Recently Worked On*.
   - Drag-and-drop handles activate exclusively in Manual mode, preserving stability across other sort modes.
   - Seamlessly combined with search to preserve active filters and sorting simultaneously.
-- **Daily Dashboard with Activity Filters**: Real-time ticker for active task, today's total tracked time, quick controls, and a dropdown selector to toggle between **Today's Tasks** (displaying only tasks worked on today) and **Recent Tasks** (tasks worked on within the last 7 days).
+- **Daily Dashboard with Activity Filters**: Real-time ticker for active task, today's total tracked time, quick controls, and a persistent dropdown selector to toggle between **Today's Tasks** (displaying only tasks worked on today) and **Recent Tasks** (tasks worked on within the last 7 days), with preference preserved across page navigation and app restarts.
 - **Accurate Live Timer**: Drift-free timestamp-based tracking (`Date.now() - startTime`), keeping live accuracy even if UI re-renders or the app is minimized.
 - **Strict Daily Boundary Enforcement**:
   - Task sessions belong strictly to a local calendar date (`YYYY-MM-DD`).

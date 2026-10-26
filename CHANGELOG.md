@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - **Dashboard Task Filters**: Added a dropdown selector on the Dashboard page to switch between "Today's Tasks" (displaying only tasks worked on during the current day) and "Recent Tasks" (displaying tasks tracked within the last 7 days, including today) with dedicated empty states.
+  - Persistent filter selection saved to `localStorage` across page navigation and application restarts, defaulting to "Today's Tasks" when no previous selection exists.
 - **Tasks Page Search**: Added a real-time search input field between the header and task list, allowing users to dynamically filter tasks by name with light/dark mode support and a clear-search empty state.
 - **Task Sorting and Organization**:
   - **Manual Drag-and-Drop**: Enabled drag-and-drop task reordering with persistent custom order saved to `localStorage`.

@@ -18,6 +18,10 @@ interface DashboardPageProps {
   onNavigateToTasks: () => void;
 }
 
+export type DashboardTaskFilter = 'today' | 'recent';
+
+export const DASHBOARD_TASK_FILTER_KEY = 'tt_dashboard_task_filter';
+
 export const DashboardPage: React.FC<DashboardPageProps> = ({
   tasks,
   activeSession,
@@ -29,7 +33,30 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
   onOpenTaskDetails,
   onNavigateToTasks,
 }) => {
-  const [taskFilter, setTaskFilter] = useState<'today' | 'recent'>('today');
+  const [taskFilter, setTaskFilter] = useState<DashboardTaskFilter>(() => {
+    try {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        const saved = localStorage.getItem(DASHBOARD_TASK_FILTER_KEY);
+        if (saved === 'today' || saved === 'recent') {
+          return saved;
+        }
+      }
+    } catch {
+      // Fallback to default
+    }
+    return 'today';
+  });
+
+  const handleTaskFilterChange = (newFilter: DashboardTaskFilter) => {
+    setTaskFilter(newFilter);
+    try {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        localStorage.setItem(DASHBOARD_TASK_FILTER_KEY, newFilter);
+      }
+    } catch (err) {
+      console.error('Failed to save dashboard task filter to localStorage:', err);
+    }
+  };
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [confirmSwitch, setConfirmSwitch] = useState<{
     targetTaskId: number;
@@ -218,7 +245,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
               <select
                 id="dashboard-task-filter"
                 value={taskFilter}
-                onChange={(e) => setTaskFilter(e.target.value as 'today' | 'recent')}
+                onChange={(e) => handleTaskFilterChange(e.target.value as DashboardTaskFilter)}
                 className="appearance-none bg-slate-100 dark:bg-slate-700/60 hover:bg-slate-200/70 dark:hover:bg-slate-700 text-slate-900 dark:text-slate-50 font-bold text-base rounded-xl pl-3 pr-8 py-1.5 border border-transparent hover:border-slate-300 dark:hover:border-slate-600 focus:outline-hidden focus:ring-2 focus:ring-blue-500 cursor-pointer transition-colors"
               >
                 <option value="today">Today's Tasks</option>
